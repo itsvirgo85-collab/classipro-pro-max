@@ -1,0 +1,10 @@
+import {Router} from 'express';
+import {PrismaClient} from '@prisma/client';
+import {auth,admin} from '../middleware/auth.js';
+const prisma=new PrismaClient(); const r=Router();
+r.use(auth,admin);
+r.get('/stats',async(req,res,next)=>{try{const [users,listings,pending,subs]=await Promise.all([prisma.user.count(),prisma.listing.count(),prisma.listing.count({where:{status:'PENDING'}}),prisma.subscription.count({where:{status:'ACTIVE'}})]);res.json({users,listings,pending,activeSubscriptions:subs})}catch(e){next(e)}});
+r.get('/listings',async(req,res,next)=>{try{res.json(await prisma.listing.findMany({orderBy:{createdAt:'desc'},include:{seller:{select:{id:true,name:true,email:true}},category:true}}))}catch(e){next(e)}});
+r.patch('/listings/:id',async(req,res,next)=>{try{const status=['ACTIVE','PENDING','SOLD','REJECTED'].includes(req.body.status)?req.body.status:undefined;const featured=typeof req.body.featured==='boolean'?req.body.featured:undefined;res.json(await prisma.listing.update({where:{id:req.params.id},data:{...(status?{status}:{}),...(featured!==undefined?{featured}:{})}}))}catch(e){next(e)}});
+r.delete('/listings/:id',async(req,res,next)=>{try{await prisma.listing.delete({where:{id:req.params.id}});res.json({ok:true})}catch(e){next(e)}});
+export default r;
