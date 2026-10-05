@@ -1,0 +1,15 @@
+<!doctype html>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ClassiPro PRO MAX</title><link rel="stylesheet" href="styles.css"></head>
+<body>
+<header><div class="nav"><a class="logo" href="#">Classi<span>Pro</span></a><nav><a href="#browse">Browse</a><a href="#categories">Categories</a><a href="#plans">Plans</a></nav><div class="actions"><button class="ghost" id="accountBtn">Account</button><button class="primary" id="postBtn">+ Post Ad</button></div></div></header>
+<section class="hero"><div><div class="eyebrow">PRO MAX CLASSIFIED MARKETPLACE</div><h1>Buy. Sell. Discover.<br><span>Faster.</span></h1><p>Real accounts, listings, seller profiles, messaging, image uploads and subscriptions.</p><div class="search"><input id="q" placeholder="Search products, services, vehicles..."><select id="cat"><option value="">All categories</option><option value="vehicles">Vehicles</option><option value="property">Property</option><option value="electronics">Electronics</option><option value="services">Services</option><option value="jobs">Jobs</option><option value="fashion">Fashion</option><option value="home-garden">Home & Garden</option></select><button class="primary" id="searchBtn">Search</button></div></div><div class="hero-card"><h3>Production-ready architecture</h3><div class="stats"><b>Postgres<br><small>Database</small></b><b>JWT<br><small>Auth</small></b><b>Socket.IO<br><small>Chat</small></b><b>Stripe<br><small>Billing</small></b></div></div></div></section>
+<section class="section" id="categories"><h2>Explore categories</h2><div class="cats" id="cats"></div></section>
+<section class="section" id="browse"><div class="section-title"><div><h2>Listings</h2><p>Live data from the backend</p></div><button class="ghost" id="refresh">Refresh</button></div><div id="listings" class="grid"></div><div id="empty" class="empty hidden">No listings found.</div></section>
+<section class="section dark" id="plans"><h2>Seller subscriptions</h2><div class="plans"><article><h3>Free</h3><strong>PKR 0</strong><p>Basic listings and messaging.</p></article><article class="featured"><h3>Premium</h3><strong>PKR 1,999/mo</strong><p>Featured placement and seller tools.</p><button class="primary buy" data-plan="premium">Upgrade</button></article><article><h3>Business</h3><strong>PKR 4,999/mo</strong><p>Unlimited marketplace presence.</p><button class="primary buy" data-plan="business">Choose</button></article></div></section>
+<footer><b>ClassiPro</b><p>Deploy this project with PostgreSQL, HTTPS, object storage, Stripe and your AI provider credentials.</p></footer>
+
+<div id="modal" class="modal"><div class="box"><button class="x" id="close">×</button><div id="modalContent"></div></div></div>
+<div id="toast" class="toast"></div>
+<script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script><script src="app.js"></script>
+</body></html>
