@@ -1,0 +1,23 @@
+services:
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: classipro
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports: ["5432:5432"]
+    volumes: [classipro_db:/var/lib/postgresql/data]
+  api:
+    build: ./server
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/classipro?schema=public
+      JWT_SECRET: change-this-in-production
+      PORT: 4000
+      CLIENT_URL: http://localhost:5173
+      UPLOAD_DIR: /app/uploads
+    ports: ["4000:4000"]
+    depends_on: [db]
+    volumes: [./server/uploads:/app/uploads]
+volumes:
+  classipro_db:
